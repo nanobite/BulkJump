@@ -1,0 +1,49 @@
+package com.nmuruvi.bulkjump.sprites;
+
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
+import com.nmuruvi.bulkjump.BulkJump;
+
+/**
+ * Created by Nano on 06/12/2015.
+ */
+public class Bulk {
+    private Vector3 position;
+    private Vector3 velocity;
+    private Texture bird;
+    private static final int GRAVITY = -15;
+    private int JUMPHEIGHT = 500;
+    public Bulk(int x, int y){
+
+        position = new Vector3(x,y,0);
+        velocity = new Vector3(0,0,0);
+        bird = new Texture("bird.png");
+
+    }
+    public void update(float deltaTime){
+        if(position.y> BulkJump.HEIGHT){
+            position.y = BulkJump.HEIGHT;
+            velocity.y=0;
+        }
+        if(position.y>0){
+            velocity.add(0,GRAVITY,0);
+        }
+        velocity.scl(deltaTime);
+        position.add(0, velocity.y, 0);
+        velocity.scl(1 / deltaTime);
+        if(position.y<0){
+            position.y=0;
+        }
+    }
+
+    public Vector3 getPosition() {
+        return position;
+    }
+
+    public Texture getTexture() {
+        return bird;
+    }
+    public void jump(){
+        velocity.y = JUMPHEIGHT;
+    }
+}
