@@ -1,10 +1,11 @@
 package com.nmuruvi.bulkjump.states;
-
+/**
+ * This is the state which is active while playing the game.
+ */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.nmuruvi.bulkjump.sprites.Bulk;
 import com.nmuruvi.bulkjump.BulkJump;
 

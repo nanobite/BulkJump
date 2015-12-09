@@ -5,9 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.awt.Rectangle;
 
-/**
- * Created by Nano on 07/12/2015.
- */
 public class Button {
     private Vector2 position;
     private Rectangle rect;
