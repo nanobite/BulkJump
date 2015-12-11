@@ -35,7 +35,7 @@ public class MenuState extends State {
             mouse.setPosition(((int) mouseTouch.x), ((int) mouseTouch.y));
             System.out.println("Mouse: " + mouseTouch.x + " : " + mouseTouch.y);
             System.out.println("Play BTN: " + playBtn.getPosition().x + " : " + playBtn.getPosition().y);
-            if (playBtn.getRect().contains(mouse.getPosition())) {
+            if (playBtn.getRect().contains(mouse.getPosition().x,mouse.getPosition().y)) {
                 System.out.println("Intersects");
                 gsm.set(new PlayState(gsm));
                 dispose();
@@ -50,6 +50,10 @@ public class MenuState extends State {
         handleInput();
     }
 
+    /**
+     * Renders the
+     * @param sb The sprites to be rendered.
+     */
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
@@ -60,6 +64,9 @@ public class MenuState extends State {
         sb.end();
     }
 
+    /**
+     * Disposes of the state when it's not needed.
+     */
     @Override
     public void dispose() {
         background.dispose();
