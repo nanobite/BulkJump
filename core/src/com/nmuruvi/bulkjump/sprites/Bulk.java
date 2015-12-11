@@ -73,8 +73,6 @@ public class Bulk {
                 jumpHeight = MAX_JUUMPHEIGHT;
             }
             velocity.y = jumpHeight;
-            //System.out.println("JUMP: " + (int) (1 + multiplier) * MIN_JUMPHEIGHT);
-
         }
     }
 }

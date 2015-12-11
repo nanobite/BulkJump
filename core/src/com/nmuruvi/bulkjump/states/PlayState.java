@@ -7,8 +7,10 @@ package com.nmuruvi.bulkjump.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.nmuruvi.bulkjump.BulkJump;
+import com.nmuruvi.bulkjump.Essentials.Button;
+import com.nmuruvi.bulkjump.Essentials.Mouse;
 import com.nmuruvi.bulkjump.sprites.Bulk;
 
 import java.util.Timer;
@@ -20,16 +22,18 @@ public class PlayState extends State {
     private Timer t;
     private boolean click;
     private TimerTask timerTask;
-    private Vector2 mousePos;
     double pressLength;
-    private int startDelay = 500;
+    private int startDelay = 600;
+    private Button exitBtn;
+    private Mouse mouse;
+    private Vector3 mouseTouch;
 
-    public PlayState(GameStateManager gsm) {
-
+    public PlayState(com.nmuruvi.bulkjump.Essentials.GameStateManager gsm) {
         super(gsm);
-        System.out.println((BulkJump.WIDTH / 8));
-
-        bulk = new Bulk(((BulkJump.WIDTH / 8)), BulkJump.HEIGHT);
+        mouse = new Mouse();
+        mouseTouch = new Vector3();
+        //exitBtn = new Button();
+        bulk = new Bulk(((BulkJump.WIDTH / 12)), BulkJump.HEIGHT);
         bg = new Texture("bg.png");
         cam.setToOrtho(false, BulkJump.WIDTH / 2, BulkJump.HEIGHT / 2);
         t = new Timer();
@@ -40,8 +44,7 @@ public class PlayState extends State {
                 enableClick();
             }
         };
-        t.schedule(timerTask, 500);
-        mousePos = new Vector2();
+        t.schedule(timerTask, startDelay);
     }
 
     private void enableClick() {
@@ -54,7 +57,8 @@ public class PlayState extends State {
     protected void handleInput() {
         if (click) {
             if (Gdx.input.isTouched()) {
-
+                cam.unproject(mouseTouch.set(Gdx.input.getX(),Gdx.input.getY(),0));
+                mouse.setPosition((int)mouseTouch.x,(int)mouseTouch.y);
                 touch = true;
                 pressLength += 0.1;
             } else {
@@ -78,6 +82,7 @@ public class PlayState extends State {
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
+        sb.draw(bg,0,0);
         sb.draw(bulk.getTexture(), bulk.getPosition().x, bulk.getPosition().y);
         sb.end();
     }
